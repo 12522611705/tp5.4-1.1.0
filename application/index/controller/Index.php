@@ -119,7 +119,7 @@ class Index extends Controller
 	public function login()	
 	{
 
-		$data['code'] = 200;
+		$data['code'] = 200; 
 		$data['data'] = md5(Request()->post('username'));
 		$data['message'] = '登陆成功';
 		
