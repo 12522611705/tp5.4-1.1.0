@@ -2,34 +2,23 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>第一个基于thinkPHP5框架的案例</title>
+	<title>心悦俱乐部</title>
 </head>
 <body>
-	<p>你好，世界1</p>
-	<p>{$time}</p>
-	<p>{$email|substr=0,8}</p>
-	<p>{$key}</p>
-	<p>{$key2}</p>
-	<p>STATIC</p>
-	<p>static</p>
-	<p>__123__</p>
-	<p>__URL__</p>
-	<p>__CSS__</p>
-	<p>__JS__</p>
-	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	<script>
-		// $.ajax({
-		//   	type: 'POST',
-		//   	url: '',
-		//   	data: {},
-		//   	success: function(data){
-		//   		console.log(data)
-		//   	},
-		//   	dataType: 'json'
-		// });
-		$.post('index/Index/news',{id:6},function(data){
+	
+	<div class="btn">
+		我是按钮
+	</div>
+
+
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script>
+	$('.btn').on('click',function(){
+		$.post('http://www.luozhou.com/index',{id:10},function(data){
 			console.log(data)
-		})
-	</script>
+		})	
+	})
+	
+</script>
 </body>
 </html>

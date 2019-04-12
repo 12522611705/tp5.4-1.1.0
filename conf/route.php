@@ -2,5 +2,5 @@
 
 use think\Route;
 
-Route::rule('news/:id','index/index/info');
-Route::rule('index/:id','index/index/index');
+Route::rule('index/:id','index/Index/index');
+Route::rule('login/:id','index/Index/login');

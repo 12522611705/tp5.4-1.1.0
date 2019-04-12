@@ -1,9 +1,10 @@
 <?php 
 use think\Env;
 return [
-	'app_status'		=> Env::get('status','dev'),
+	'app_status'		=> Env::get('status','home'),
 	'auto_bind_module'  => true,
-	'url_route_on'      => true,
+    // 关闭路由配置
+	'url_route_on'      => false,
 	'url_route_must'    => false,
 	// +----------------------------------------------------------------------
     // | 会话设置
@@ -48,6 +49,8 @@ return [
     'view_replace_str' => [
     	'__123__'			=>'123'
     ],
+    // 应用调试模式
+    'app_debug'             => true,
     
 ];
 

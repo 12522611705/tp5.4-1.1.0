@@ -1,78 +1,132 @@
 <?php
 namespace app\index\controller;
-												
-use app\common\controller\Index as commonIndex;
-use think\Config;
-use think\Env;
-use think\Request;
+
 use think\Controller;
+use think\Request;
+use think\Response;
+use think\Db;
                                               											
 class Index extends Controller
 {
-	// 模块其它函数执行之前执行这个函数
-	// public function __construct()
-	// {
-	// 	// 第一个值key，第二个值value，第三个值作用域
-	// 	config('before', '123456', 'index');
-	// }
+	public function _initialize()
+	{
+
+
+	}
 	// 模块默认访问函数
 	public function index(Request $request)						
-	{			
-		// $res = Config::get('before','index');		
-		// $env = Env::get('email');
-		// $request = request();						
-		// dump($request->param());
-		// dump($request->get());
-		// dump($request->isPost());
-		// dump($request->isGet());
-		// session('name','luozhou');
-		// dump($request->session());
-		// cookie('email','978676938@qq.com');
-		// dump($request->cookie());
-		// dump($request->cookie('email'));
+	{	
+		// --- 查找数据
+		// $res = Db::execute("insert into _luozhou_user set username=?,password=?,email=?",[
+		// 	'laowei',
+		// 	md5(123456),
+		// 	'laowei@qq.com'
+		// ]);
 		
-		// $res = [
-		// 	'code'  => 200,
-		// 	'result'  => [
-		// 		'list'	=>  [1,2,3,4]
-		// 	]
-		// ];
-		// return $res; 
+		// $res = Db::query("select * from _luozhou_user where id=?",[1]);
+	
+		// $res = Db::table('_luozhou_user')->where([
+		// 	'id'=>1
+		// ])->value('username');
 		
-		$this->assign('key','value');
-		$this->view->key2 = 'value2';
-		return view('index',[
-			'email' 	=>'978676938@qq.com',
-			'time'		=>time()
-		],[
-			'STATIC'	=>'我是替换文本',
-			'static'	=>'我是static',
-		]);
-		   
-		// return $this->display('这个{$php}',[
-		// 	'php' 	=>'php是世界上最好的语言'
+		// $res = Db::table('_luozhou_user')->where([
+		// 	'id'=>1
+		// ])->select();
+		
+		// $res = Db::table('_luozhou_user')->where([
+		// 	'id'=>1
+		// ])->column('email','username');
+		
+		// $res = Db::name('user')->where([
+		// 	'id'=>1
+		// ])->column('email','username');
+
+		// $res = db('user',[],false)->where([
+		// 	'id'=>1
+		// ])->column('email','username');
+		
+		// --- 插入数据
+		// $res = Db::name('user')->insert([
+		// 	'email'		=>'luoxin@qq.com',
+		// 	'password'	=>md5(123456),
+		// 	'username'	=>'luoxin'
 		// ]);
 		
 
-		// return $this->fetch('index',[
-		// 	'email'		=>'978676938@qq.com',
-		// ],[
-		// 	'STATIC'	=>'替换文本'
+		// $res = Db::name('user')->insertGetId([
+		// 	'email'		=>'luoxin@qq.com',
+		// 	'password'	=>md5(123456),
+		// 	'username'	=>'luoxin'
 		// ]);
+		
+		// $res = Db::name('user')->insertAll([
+		// 	[
+		// 		'email'		=>'luoxin1@qq.com',
+		// 		'password'	=>md5(123456),
+		// 		'username'	=>'luoxin1'
+		// 	],
+		// 	[
+		// 		'email'		=>'luoxin2@qq.com',
+		// 		'password'	=>md5(123456),
+		// 		'username'	=>'luoxin2'
+		// 	]
+		// ]);
+
+		// update 批量修改数据
+		// $res = Db::name('user')->where([
+		// 	'id'		=>8
+		// ])->update([
+		// 	'username'	=>"luoxin12"
+		// ]);
+
+		// setInc 自增函数
+		// $res = Db::name('user')->where([
+		// 	'id'		=>1,
+		// ])->setInc('sex');
+
+		// setDec 自减函数
+		// $res = Db::name('user')->where([
+		// 	'id'		=>1
+		// ])->setDec('sex');
+
+		// 删除数据
+		// $res = Db::name('user')->where([
+		// 	'id'		=>7	
+		// ])->delete();
+		// 条件查询语句运算符关键词
+		// EQ[=] 	等于
+		// ENQ[<>]	不等于
+		// LT[<]	小于
+		// ELT[<=]	小于等于
+		// GT[>]	大于
+		// EGT[>=]	大于等于
+		// BETWEEN[BETWEEN * AND *]	范围
+		// NOTBETWEEN[NOTBETWEEN * AND *] 范围取反
+		// IN[IN (*,*)]		包含
+		// NOTIN[NOT IN (*,*)] 	不包含
+
+		// dump($res);
+		$data["code"] = 200;
+        $data["message"] = "第一个请求";
+        $data["data"] = Request()->post('id');
+
+		
+		header('Content-Type:application/x-www-form-urlencoded;charset=UTF-8');
+		header('Access-Control-Allow-Origin:*');
+		
+        return $data;
 	}
-	// 模块可访问函数 
-	// public function common()	
-	// {	
-	// 	// return '11111';
-	// 	$common = new commonIndex();
-	// 	return $common->index();
-	// }
-	public function info($id)
+	public function login()	
 	{
-		return $id;
-	}
-	public function demo()
-	{
-		return "demo";
+
+		$data['code'] = 200;
+		$data['data'] = md5(Request()->post('username'));
+		$data['message'] = '登陆成功';
+		
+
+		header('Content-Type:application/x-www-form-urlencoded;charset=UTF-8');
+		header('Access-Control-Allow-Origin:*');
+		
+		return $data;
 	}
 }
